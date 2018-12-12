@@ -127,5 +127,55 @@ namespace Internship_2_Inventory
                     break;
             }
         }
+
+        public void PrintSerialNumbers()
+        {
+            foreach (var i in Computers)
+            {
+                i.PrintSerialNumber();
+            }
+
+            foreach (var i in Phones)
+            {
+                i.PrintSerialNumber();
+            }
+
+            foreach (var i in Vehicles)
+            {
+                i.PrintSerialNumber();
+            }
+        }
+
+        public void PrintBySerialNumber(Guid sentSerialNumber)
+        {
+            Console.WriteLine("Trazeni item: \n");
+
+            for (var i = 0; i < Computers.Count; i++)
+            {
+                if (Computers[i].SerialNumber == sentSerialNumber)
+                {
+                    Computers[i].Print();
+                    break;
+                }
+            }
+
+            for (var i = 0; i < Phones.Count; i++)
+            {
+                if (Phones[i].SerialNumber == sentSerialNumber)
+                {
+                    Phones[i].Print();
+                    break;
+                }
+            }
+
+            for (var i = 0; i < Vehicles.Count; i++)
+            {
+                if (Vehicles[i].SerialNumber == sentSerialNumber)
+                {
+                    Vehicles[i].Print();
+                    break;
+                }
+            }
+        }
     }
 }

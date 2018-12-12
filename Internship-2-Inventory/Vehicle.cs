@@ -29,5 +29,12 @@ namespace Internship_2_Inventory
             Console.WriteLine(Mileage);
             Console.WriteLine();
         }
+
+        public void PrintSerialNumber()
+        {
+            Console.WriteLine(SerialNumber);
+            Console.WriteLine();
+
+        }
     }
 }

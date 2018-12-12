@@ -30,5 +30,12 @@ namespace Internship_2_Inventory
             Console.WriteLine(NameOfOwner);
             Console.WriteLine();
         }
+
+        public void PrintSerialNumber()
+        {
+            Console.WriteLine(SerialNumber);
+            Console.WriteLine();
+
+        }
     }
 }
