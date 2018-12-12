@@ -16,5 +16,19 @@ namespace Internship_2_Inventory
 
         public string PhoneNumber { get; set; }
         public string NameOfOwner { get; set; }
+
+        public void Print()
+        {
+            Console.WriteLine(SerialNumber);
+            Console.WriteLine(Description);
+            Console.WriteLine(PurchaseDate);
+            Console.WriteLine(Warranty);
+            Console.WriteLine(PurchasePrice);
+            Console.WriteLine(Manufacturer);
+            Console.WriteLine(Battery);
+            Console.WriteLine(PhoneNumber);
+            Console.WriteLine(NameOfOwner);
+            Console.WriteLine();
+        }
     }
 }

@@ -17,18 +17,18 @@ namespace Internship_2_Inventory
         public string OperatingSystem { get; set; }
         public bool Portable { get; set; }
 
-        //public void Print()
-        //{
-        //    Console.WriteLine(SerialNumber);
-        //    Console.WriteLine(Description);
-        //    Console.WriteLine(PurchaseDate);
-        //    Console.WriteLine(Warranty);
-        //    Console.WriteLine(PurchasePrice);
-        //    Console.WriteLine(Manufacturer);
-        //    Console.WriteLine(Battery);
-        //    Console.WriteLine(OperatingSystem);
-        //    Console.WriteLine(Portable);
-        //    Console.WriteLine();
-        //}
+        public void Print()
+        {
+            Console.WriteLine(SerialNumber);
+            Console.WriteLine(Description);
+            Console.WriteLine(PurchaseDate);
+            Console.WriteLine(Warranty);
+            Console.WriteLine(PurchasePrice);
+            Console.WriteLine(Manufacturer);
+            Console.WriteLine(Battery);
+            Console.WriteLine(OperatingSystem);
+            Console.WriteLine(Portable);
+            Console.WriteLine();
+        }
     }
 }
