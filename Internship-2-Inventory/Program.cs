@@ -57,7 +57,12 @@ namespace Internship_2_Inventory
                                 Console.Write("Unesi rijecima DA ili NE je li uredaj prenosiv: ");
                                 var portable = Console.ReadLine();
 
-                                ComputersInput(description, year, month, day, warranty, initialPrice, manufacturer, battery, os, portable);
+                                var newComputer = ComputersInput(description, year, month, day, warranty, initialPrice, manufacturer, battery, os, portable);
+                                myInventory.InputComputers(newComputer);
+
+                                Console.WriteLine("Novo racunalo uspjesno dodano!\n");
+                                myInventory.Print(1);
+
                             }
                             else if (choice == "mobiteli")
                             {
@@ -82,7 +87,11 @@ namespace Internship_2_Inventory
                                 Console.Write("Unesi ime i prezime vlasnika mobitela: ");
                                 var nameOfOwner = Console.ReadLine();
 
-                                PhonesInput(description, year, month, day, warranty, initialPrice, manufacturer, battery, phoneNumber, nameOfOwner);
+                                var newPhone = PhonesInput(description, year, month, day, warranty, initialPrice, manufacturer, battery, phoneNumber, nameOfOwner);
+                                myInventory.InputPhones(newPhone);
+
+                                Console.WriteLine("Novi mobitel uspjesno dodan!\n");
+                                myInventory.Print(2);
                             }
                             else
                             {
@@ -115,7 +124,12 @@ namespace Internship_2_Inventory
                             Console.Write("Unesi broj kilometraze na vozilu u obliku broja: ");
                             var mileage = Console.ReadLine();
 
-                            VehiclesInput(description, year, month, day, warranty, initialPrice, manufacturer, registrationYear, registrationMonth, registrationDay, mileage);
+                            var newVehicle = VehiclesInput(description, year, month, day, warranty, initialPrice,
+                                manufacturer, registrationYear, registrationMonth, registrationDay, mileage);
+                            myInventory.InputVehicles(newVehicle);
+
+                            Console.WriteLine("Novo vozilo uspjesno dodano!\n");
+                            myInventory.Print(3);
                         }
                         else
                         {
@@ -185,7 +199,7 @@ namespace Internship_2_Inventory
                         
                         myInventory.PrintSerialNumbers();
 
-                        //expecting the user to type in a serial number so it's not checking if it's in GUID format
+                        //expected from the user to paste a serial number so it's not checking if it's in GUID format
                         Console.Write("Kopiraj i zaljepi serijski broj: ");
                         var serialNumber = Guid.Parse(Console.ReadLine());
                         Console.WriteLine();
@@ -195,23 +209,42 @@ namespace Internship_2_Inventory
                         break;
 
                     case "4":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Pretraga racunala po godini isteka garancije");
+                        Console.Write("Unesi godinu isteka garancije: ");
+                        var warrantyYear = Console.ReadLine();
+                        Console.WriteLine("\nRezultat pretrage:\n");
+
+                        PrintByWarrantyYear(warrantyYear, myInventory);
+
                         break;
 
                     case "5":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Ukupni broj proizvoda s baterijama");
+                        
+                        myInventory.NumberOfBatteries();
+
                         break;
 
                     case "6":
                         Console.WriteLine("Odabrali ste opciju: ");
+
                         break;
 
                     case "7":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Pretraga vlasnika vozila po godini isteka garncije");
+                        Console.Write("Unesi godinu isteka garancije: ");
+                        var warrantyExpiration = Console.ReadLine();
+
+                        PrintNameByWarrantyYear(warrantyExpiration,myInventory);
+
                         break;
 
                     case "8":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Vozila kojima registracija istice u iducih mjesec dana");
+                        Console.WriteLine("Ta vozila su:\n");
+
+                        myInventory.PrintVehiclesByRegistration();
+
                         break;
 
                     case "9":
@@ -219,16 +252,22 @@ namespace Internship_2_Inventory
                         break;
 
                     case "0":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Izlazak iz programa\n");
+
+                        myInventory.Print(1);
+                        myInventory.Print(2);
+                        myInventory.Print(3);
+
                         break;
 
                     default:
-                        Console.WriteLine("Krivi unos!");
+                        Console.WriteLine("Pogresan unos! Povratak na opcije");
                         break;
                 }
 
             } while (option!="0");
         }
+
 
         static List<Computer> ComputerInitialisation()
         {
@@ -255,13 +294,13 @@ namespace Internship_2_Inventory
             var vehicles = new List<Vehicle>()
             {
                 new Vehicle(Guid.NewGuid(), "Prvo Vozilo", new DateTime(2008, 5, 1), 24, 2000, "Toyota", new DateTime(2009, 5, 1), "120.120"),
-                new Vehicle(Guid.NewGuid(), "Drugo Vozilo", new DateTime(2008, 1, 12), 25, 2000, "Fiat", new DateTime(2009, 1, 13), "0.00")
+                new Vehicle(Guid.NewGuid(), "Drugo Vozilo", new DateTime(2008, 1, 12), 25, 2000, "Fiat", new DateTime(2008, 2, 10), "0.00")
             };
             return vehicles;
         }
+  
 
-
-        static void ComputersInput(string description, string year, string month, string day, string warranty,
+        static Computer ComputersInput(string description, string year, string month, string day, string warranty,
             string initialPrice, string manufactutrer, string battery, string os, string portable)
         {
             //in the last code review you said not to use Int32.parse but the command Int.TryParse doesn't work and Int.Parse doesn't work as well 
@@ -364,22 +403,16 @@ namespace Internship_2_Inventory
                 isfalse = true;
 
 
-            var computers = new List<Computer>()
-            {
-                new Computer(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt), int.Parse(warranty),
-                    int.Parse(initialPrice), manufactutrer, istrue, os, isfalse)
-            };
 
+            Computer newComputer = new Computer(Guid.NewGuid(), description,
+                new DateTime(yearAsInt, monthAsInt, dayAsInt), int.Parse(warranty),
+                int.Parse(initialPrice), manufactutrer, istrue, os, isfalse);
 
-            var myNewInventory = new Inventory(computers);
-
-            Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.Print(1);
-            Console.WriteLine();
+            return newComputer;
         }
 
 
-        static void PhonesInput(string description, string year, string month, string day, string warranty,
+        static Phone PhonesInput(string description, string year, string month, string day, string warranty,
             string initialPrice, string manufactutrer, string battery, string phoneNumber, string nameOfOwner)
         {
             var yearAsInt = 0;
@@ -467,22 +500,14 @@ namespace Internship_2_Inventory
                 istrue = true;
 
 
-            var phones = new List<Phone>()
-            {
-                new Phone(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt), int.Parse(warranty),
-                    int.Parse(initialPrice), manufactutrer, istrue, phoneNumber, nameOfOwner)
-            };
+            var newPhone = new Phone(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt), 
+                int.Parse(warranty), int.Parse(initialPrice), manufactutrer, istrue, phoneNumber, nameOfOwner);
 
-
-            var myNewInventory = new Inventory(phones);
-
-            Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.Print(2);
-            Console.WriteLine();
+            return newPhone;
         }
 
 
-        static void VehiclesInput(string description, string year, string month, string day, string warranty,
+        static Vehicle VehiclesInput(string description, string year, string month, string day, string warranty,
             string initialPrice, string manufactutrer, string registrationYear, string registrationMonth, string registrationDay, string mileage)
         {
             var yearAsInt = 0;
@@ -611,20 +636,13 @@ namespace Internship_2_Inventory
                         parsed = false;
             }
 
+            var newVehicle = new Vehicle(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt),
+                int.Parse(warranty), int.Parse(initialPrice), manufactutrer,
+                new DateTime(registrationYearAsInt, registrationMonthAsInt, registrationDayAsInt), mileage);
 
-            var vehicles = new List<Vehicle>()
-            {
-                new Vehicle(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt),
-                    int.Parse(warranty), int.Parse(initialPrice), manufactutrer,
-                    new DateTime(registrationYearAsInt, registrationMonthAsInt, registrationDayAsInt), mileage)
-            };
-
-            var myNewInventory = new Inventory(vehicles);
-
-            Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.Print(3);
-            Console.WriteLine();
+            return newVehicle;
         }
+
 
         static Inventory DeleteItem(Guid serialNumber,Inventory myNewInventory, string choice)
         {
@@ -653,9 +671,41 @@ namespace Internship_2_Inventory
             return myNewInventory;
         }
 
-        static void PrintBySerialNumber(Guid serialNumber, Inventory myNewInventory)
+        static void PrintByWarrantyYear(string warrantyYear, Inventory myInventory)
         {
-            myNewInventory.PrintBySerialNumber(serialNumber);
+            var warrantyYearAsInt = 0;
+
+            bool parsed = Int32.TryParse(warrantyYear, out int a);
+            if (!parsed)
+            {
+                Console.WriteLine("Pogresan unos za godinu, podatak mora biti broj!\n");
+                return;
+            }
+            else
+            {
+                warrantyYearAsInt = int.Parse(warrantyYear);
+            }
+
+            myInventory.PrintByWarrantyYear(warrantyYearAsInt);
+        }
+
+        static void PrintNameByWarrantyYear(string warrantyExpiration, Inventory myInventory)
+        {
+            var warrantyExpirationAsInt = 0;
+
+            bool parsed = Int32.TryParse(warrantyExpiration, out int a);
+            if (!parsed)
+            {
+                Console.WriteLine("Pogresan unos za godinu, podatak mora biti broj!\n");
+                return;
+            }
+            else
+            {
+                warrantyExpirationAsInt = int.Parse(warrantyExpiration);
+            }
+
+            Console.WriteLine();
+            myInventory.PhoneWarrantyExpiration(warrantyExpirationAsInt);
         }
     }
 }

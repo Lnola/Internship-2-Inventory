@@ -19,15 +19,15 @@ namespace Internship_2_Inventory
 
         public void Print()
         {
-            Console.WriteLine(SerialNumber);
-            Console.WriteLine(Description);
-            Console.WriteLine(PurchaseDate);
-            Console.WriteLine(Warranty);
-            Console.WriteLine(PurchasePrice);
-            Console.WriteLine(Manufacturer);
-            Console.WriteLine(Battery);
-            Console.WriteLine(OperatingSystem);
-            Console.WriteLine(Portable);
+            Console.WriteLine("Serial Number: "+SerialNumber);
+            Console.WriteLine("Description: " + Description);
+            Console.WriteLine("Purchase Date: " + String.Format("{0:dd/MM/yyyy}", PurchaseDate));
+            Console.WriteLine("Warranty: " + Warranty);
+            Console.WriteLine("Purchase Price: " + PurchasePrice);
+            Console.WriteLine("Manufacturer: " + Manufacturer);
+            Console.WriteLine("Battery: " + Battery);
+            Console.WriteLine("Operating System: " + OperatingSystem);
+            Console.WriteLine("Portability: " + Portable);
             Console.WriteLine();
         }
 
@@ -35,6 +35,15 @@ namespace Internship_2_Inventory
         {
             Console.WriteLine(SerialNumber);
             Console.WriteLine();
+        }
+
+        public int WarrantyExpirationYear()
+        {
+            var warrantyExpiration = new DateTime(PurchaseDate.Year, PurchaseDate.Month, PurchaseDate.Day);
+            warrantyExpiration = warrantyExpiration.AddMonths(Warranty);
+            int year = warrantyExpiration.Year;
+
+            return year;
         }
     }
 }
