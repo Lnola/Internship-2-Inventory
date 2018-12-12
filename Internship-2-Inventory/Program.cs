@@ -179,7 +179,19 @@ namespace Internship_2_Inventory
                         break;
 
                     case "3":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Prikaz itema preko serijskog broja");
+
+                        Console.WriteLine("Ovo su serijski brojevi:\n");
+                        
+                        myInventory.PrintSerialNumbers();
+
+                        //expecting the user to type in a serial number so it's not checking if it's in GUID format
+                        Console.Write("Kopiraj i zaljepi serijski broj: ");
+                        var serialNumber = Guid.Parse(Console.ReadLine());
+                        Console.WriteLine();
+
+                        myInventory.PrintBySerialNumber(serialNumber);
+
                         break;
 
                     case "4":
@@ -639,6 +651,11 @@ namespace Internship_2_Inventory
             
             
             return myNewInventory;
+        }
+
+        static void PrintBySerialNumber(Guid serialNumber, Inventory myNewInventory)
+        {
+            myNewInventory.PrintBySerialNumber(serialNumber);
         }
     }
 }
