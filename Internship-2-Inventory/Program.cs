@@ -86,8 +86,8 @@ namespace Internship_2_Inventory
                             }
                             else
                             {
-                                Console.WriteLine("Krivi unos! Povratak na opcije");
-                                return;
+                                Console.WriteLine("Pogresan unos! Povratak na opcije\n");
+                                break;
                             }
                         }
                         else if (choice == "vozila")
@@ -119,38 +119,97 @@ namespace Internship_2_Inventory
                         }
                         else
                         {
-                            Console.WriteLine("Krivi unos! Povratak na opcije");
-                            return;
+                            Console.WriteLine("Pogresan unos! Povratak na opcije\n");
+                            break;
                         }
 
                         break;
+
                     case "2":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Brisanje postojeceg itema iz inventara");
+                        Console.Write("Unesi kategoriju iz koje zelis izbrisati item rijecima Racunalo, Mobitel ili Vozilo: ");
+                        choice = Console.ReadLine();
+                        choice = choice.ToLower();
+
+                        Console.WriteLine();
+                        var serialInput = Guid.NewGuid();
+
+                        if (choice == "racunalo")
+                        {
+                            myInventory.Print(1);
+                            Console.Write("Kopiraj i zaljepi serijski broj racunala koji zelis izbrisati: ");
+                            serialInput = Guid.Parse(Console.ReadLine());
+                            Console.WriteLine();
+
+                            Console.WriteLine("Racunalo uspjesno izbrisano!\n");
+
+                            DeleteItem(serialInput, myInventory, choice);
+
+                        }
+                        else if (choice == "mobitel")
+                        {
+                            myInventory.Print(2);
+                            Console.Write("Kopiraj i zaljepi serijski broj mobitela koji zelis izbrisati: ");
+                            serialInput = Guid.Parse(Console.ReadLine());
+                            Console.WriteLine();
+
+                            Console.WriteLine("Mobitel uspjesno izbrisan!\n");
+
+                            DeleteItem(serialInput, myInventory, choice);
+
+                        }
+                        else if (choice == "vozilo")
+                        {
+                            myInventory.Print(3);
+                            Console.Write("Kopiraj i zaljepi serijski broj vozila koje zelis izbrisati: ");
+                            serialInput = Guid.Parse(Console.ReadLine());
+                            Console.WriteLine();
+
+                            Console.WriteLine("Vozilo uspjesno izbrisano!\n");
+
+                            DeleteItem(serialInput, myInventory, choice);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Pogresan unos! Povratak na opcije.\n");
+                            break;
+                        }
+
                         break;
+
                     case "3":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "4":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "5":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "6":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "7":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "8":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "9":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     case "0":
                         Console.WriteLine("Odabrali ste opciju: ");
                         break;
+
                     default:
                         Console.WriteLine("Krivi unos!");
                         break;
@@ -233,7 +292,7 @@ namespace Internship_2_Inventory
             var dayAsInt = 0;
             parsed = Int32.TryParse(day, out a);
             if (parsed)
-                if (int.Parse(day) > 0 && int.Parse(day) < 13)
+                if (int.Parse(day) > 0 && int.Parse(day) < 31)
                     dayAsInt = int.Parse(day);
                 else
                     parsed = false;
@@ -244,7 +303,7 @@ namespace Internship_2_Inventory
                 day = Console.ReadLine();
                 parsed = Int32.TryParse(day, out a);
                 if (parsed)
-                    if (int.Parse(day) > 0 && int.Parse(day) < 13)
+                    if (int.Parse(day) > 0 && int.Parse(day) < 31)
                         dayAsInt = int.Parse(day);
                     else
                         parsed = false;
@@ -303,7 +362,7 @@ namespace Internship_2_Inventory
             var myNewInventory = new Inventory(computers);
 
             Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.PrintComputers();
+            myNewInventory.Print(1);
             Console.WriteLine();
         }
 
@@ -406,7 +465,7 @@ namespace Internship_2_Inventory
             var myNewInventory = new Inventory(phones);
 
             Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.PrintPhones();
+            myNewInventory.Print(2);
             Console.WriteLine();
         }
 
@@ -551,8 +610,35 @@ namespace Internship_2_Inventory
             var myNewInventory = new Inventory(vehicles);
 
             Console.WriteLine("\nUspjesno unesen item:\n");
-            myNewInventory.PrintVehicles();
+            myNewInventory.Print(3);
             Console.WriteLine();
+        }
+
+        static Inventory DeleteItem(Guid serialNumber,Inventory myNewInventory, string choice)
+        {
+            switch (choice)
+            {
+                case "racunalo":
+                    myNewInventory.Delete(1, serialNumber);
+                    myNewInventory.Print(1);
+
+                    break;
+
+                case "mobitel":
+                    myNewInventory.Delete(2, serialNumber);
+                    myNewInventory.Print(2);
+
+                    break;
+
+                case "vozilo":
+                    myNewInventory.Delete(3, serialNumber);
+                    myNewInventory.Print(3);
+
+                    break;
+            }
+            
+            
+            return myNewInventory;
         }
     }
 }

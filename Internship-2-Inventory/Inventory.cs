@@ -33,27 +33,98 @@ namespace Internship_2_Inventory
         public List<Phone> Phones { get; set; }
         public List<Vehicle> Vehicles { get; set; }
 
-        public void PrintComputers()
+        
+        public void Print(int type)
         {
-            foreach (var i in Computers)
+            switch (type)
             {
-                i.Print();
+                case 1:
+                    Console.WriteLine("Inventar racunala:\n");
+                    foreach (var i in Computers)
+                    {
+                        i.Print();
+                    }
+
+                    break;
+                case 2:
+                    Console.WriteLine("Inventar mobitela:\n");
+                    foreach (var i in Phones)
+                    {
+                        i.Print();
+                    }
+
+                    break;
+                case 3:
+                    Console.WriteLine("Inventar vozila:\n");
+                    foreach (var i in Vehicles)
+                    {
+                        i.Print();
+                    }
+
+                    break;
             }
         }
 
-        public void PrintPhones()
+        public int Size(int type)
         {
-            foreach (var i in Phones)
+            var size = 0;
+
+            switch (type)
             {
-                i.Print();
+                case 1:
+                    size = Computers.Count;
+
+                    break;
+                case 2:
+                    size = Phones.Count;
+
+                    break;
+                case 3:
+                    size = Vehicles.Count;
+
+                    break;
             }
+
+            return size;
         }
 
-        public void PrintVehicles()
+        public void Delete(int type, Guid serialNumber)
         {
-            foreach (var i in Vehicles)
+            switch (type)
             {
-                i.Print();
+                case 1:
+                    for (var i = 0; i < Computers.Count; i++)
+                    {
+                        if (Computers[i].SerialNumber == serialNumber)
+                        {
+                            Computers.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    break;
+                case 2:
+                    for (var i = 0; i < Phones.Count; i++)
+                    {
+                        if (Phones[i].SerialNumber == serialNumber)
+                        {
+                            Phones.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    break;
+                case 3:
+                    for (var i = 0; i < Vehicles.Count; i++)
+                    {
+                        if (Vehicles[i].SerialNumber == serialNumber)
+                        {
+                            Vehicles.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    break;
             }
         }
     }
