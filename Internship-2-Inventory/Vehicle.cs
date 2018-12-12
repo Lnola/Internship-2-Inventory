@@ -19,14 +19,14 @@ namespace Internship_2_Inventory
 
         public void Print()
         {
-            Console.WriteLine(SerialNumber);
-            Console.WriteLine(Description);
-            Console.WriteLine(PurchaseDate);
-            Console.WriteLine(Warranty);
-            Console.WriteLine(PurchasePrice);
-            Console.WriteLine(Manufacturer);
-            Console.WriteLine(RegistartionExpirationDate);
-            Console.WriteLine(Mileage);
+            Console.WriteLine("Serial Number: " + SerialNumber);
+            Console.WriteLine("Description: " + Description);
+            Console.WriteLine("Purchase Date: " + String.Format("{0:dd/MM/yyyy}", PurchaseDate));
+            Console.WriteLine("Warranty: " + Warranty);
+            Console.WriteLine("Purchase Price: " + PurchasePrice);
+            Console.WriteLine("Manufacturer: " + Manufacturer);
+            Console.WriteLine("Registration Expiration Date: " + String.Format("{0:dd/MM/yyyy}", RegistartionExpirationDate));
+            Console.WriteLine("Mileage: " + Mileage);
             Console.WriteLine();
         }
 
@@ -35,6 +35,13 @@ namespace Internship_2_Inventory
             Console.WriteLine(SerialNumber);
             Console.WriteLine();
 
+        }
+
+        public DateTime PurchaseDatePlusMonth()
+        {
+            var purchaseDatePlusMonth = PurchaseDate.AddMonths(1);
+
+            return purchaseDatePlusMonth;
         }
     }
 }

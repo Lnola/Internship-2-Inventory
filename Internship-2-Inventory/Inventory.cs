@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 
 namespace Internship_2_Inventory
 {
@@ -33,7 +35,22 @@ namespace Internship_2_Inventory
         public List<Phone> Phones { get; set; }
         public List<Vehicle> Vehicles { get; set; }
 
-        
+
+        public void InputComputers(Computer newComputer)
+        {
+            Computers.Add(newComputer);
+        }
+
+        public void InputPhones(Phone newPhone)
+        {
+            Phones.Add(newPhone);
+        }
+
+        public void InputVehicles(Vehicle newVehicle)
+        {
+            Vehicles.Add(newVehicle);
+        }
+
         public void Print(int type)
         {
             switch (type)
@@ -176,6 +193,75 @@ namespace Internship_2_Inventory
                     break;
                 }
             }
+        }
+
+        public void PrintByWarrantyYear(int warrantyYear)
+        {
+            var exisits = false;
+            for (var i = 0; i < Computers.Count; i++)
+            {
+                if (Computers[i].WarrantyExpirationYear() == warrantyYear)
+                {
+                    Computers[i].Print();
+                    exisits = true;
+                }
+            }
+            if(!exisits)
+                Console.WriteLine("Ta godina isteka garancije ne postoji!");
+        }
+
+        public void NumberOfBatteries()
+        {
+            var numberOfBatteries = 0;
+
+            for (var i = 0; i < Computers.Count; i++)
+            {
+                if (Computers[i].Battery)
+                {
+                    numberOfBatteries++;
+                }
+            }
+
+            for (var i = 0; i < Phones.Count; i++)
+            {
+                if (Phones[i].Battery)
+                {
+                    numberOfBatteries++;
+                }
+            }
+
+            Console.WriteLine("\nUkupan broj proizvoda s baterijama je: " + numberOfBatteries + "\n");
+        }
+
+        public void PhoneWarrantyExpiration(int warrantyExpiration)
+        {
+            var exisits = false;
+            for (var i = 0; i < Phones.Count; i++)
+            {
+                if (Phones[i].PhoneWarrantyExpiration() == warrantyExpiration)
+                {
+                    Phones[i].PrintNames();
+                    Console.WriteLine();
+                    exisits = true;
+                }
+            }
+            if (!exisits)
+                Console.WriteLine("Ta godina isteka garancije ne postoji!\n");
+        }
+
+        public void PrintVehiclesByRegistration()
+        {
+            var exists = false;
+            for (var i = 0; i < Vehicles.Count; i++)
+            {
+                if (Vehicles[i].RegistartionExpirationDate <= Vehicles[i].PurchaseDatePlusMonth())
+                {
+                    Vehicles[i].Print();
+                    exists = true;
+                }
+            }
+            if(!exists)
+                Console.WriteLine("Ne postoji vozilo cija registracija istice u iducih mjesec dana\n");
         }
     }
 }
