@@ -52,5 +52,10 @@ namespace Internship_2_Inventory
             Console.WriteLine("Phone Number: " + PhoneNumber);
             Console.WriteLine("Name Of Owner: " + NameOfOwner);
         }
+
+        public void PrintManufacturer()
+        {
+            Console.WriteLine(Manufacturer);
+        }
     }
 }

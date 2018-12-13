@@ -45,5 +45,10 @@ namespace Internship_2_Inventory
 
             return year;
         }
+
+        public void PrintOperatingSystem()
+        {
+            Console.WriteLine(OperatingSystem);
+        }
     }
 }
