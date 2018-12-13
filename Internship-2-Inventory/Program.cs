@@ -226,7 +226,35 @@ namespace Internship_2_Inventory
                         break;
 
                     case "6":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Pretraga mobitela po markama ili pretraga racunala po operativnom sustavu");
+                        Console.Write("Unesi kategotiju koji zelis pretraziti rijecima Mobiteli ili Racunala: ");
+                        var input = Console.ReadLine();
+                        input = input.ToLower();
+
+                        if (input == "mobiteli")
+                        {
+                            myInventory.PrintTask6(1);
+
+                            Console.Write("Unesi jednog od postojecih proizvodaca mobitela: ");
+                            var input2 = Console.ReadLine();
+                            input2 = input2.ToLower();
+
+                            myInventory.PrintByTask6(1, input2);
+
+                        }
+                        else if (input == "racunala")
+                        {
+                            myInventory.PrintTask6(2);
+
+                            Console.Write("Unesi jedan od postojecih operativnih sustava: ");
+                            var input2 = Console.ReadLine();
+                            input2 = input2.ToLower();
+
+                            myInventory.PrintByTask6(2, input2);
+
+                        }
+                        else
+                            Console.WriteLine("Pogresan unos! Povratak na opcije.\n");
 
                         break;
 

@@ -263,5 +263,84 @@ namespace Internship_2_Inventory
             if(!exists)
                 Console.WriteLine("Ne postoji vozilo cija registracija istice u iducih mjesec dana\n");
         }
+
+        public void PrintTask6(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    Console.WriteLine("\nPostojeci proizvodaci mobitela:\n");
+
+                    if(Phones.Count>0)
+                        foreach (var i in Phones)
+                        {
+                            i.PrintManufacturer();
+                        }
+                    else
+                        Console.WriteLine("Ne postoji niti jedan mobitel!");
+
+                    break;
+
+                case 2:
+                    Console.WriteLine("\nPostojeci operativni sustavi:\n");
+
+                    if (Computers.Count > 0)
+                        foreach (var i in Computers)
+                        {
+                            i.PrintOperatingSystem();
+                        }
+                    else
+                        Console.WriteLine("Ne postoji niti jedno racunalo!");
+
+                    break;
+            }
+
+            Console.WriteLine();
+        }
+
+        public void PrintByTask6(int type, string input)
+        {
+            //in the last review you said it's easier to use return; instead of bool as flaggs but in this case i used bool because it needs to print all the 
+            //phones with this manufacturer not just one. I was wandering if there's an easier way to do this without the bool variable
+
+            switch (type)
+            {
+                case 1:
+                    Console.WriteLine("\nTrazeni mobiteli:\n");
+                    var exists = false;
+
+                    foreach (var i in Phones)
+                    {
+                        if (input == i.Manufacturer.ToLower())
+                        {
+                            i.Print();
+                            exists = true;
+                        }
+                    }
+
+                    if (!exists)
+                        Console.WriteLine("Nijedan mobitel nega tog proizvodaca! Povratak na opcije\n");
+
+                    break;
+
+                case 2:
+                    Console.WriteLine("\nTrazena racunala:\n");
+                    exists = false;
+
+                    foreach (var i in Computers)
+                    {
+                        if (input == i.OperatingSystem.ToLower())
+                        {
+                            i.Print();
+                            exists = true;
+                        }
+                    }
+
+                    if (!exists)
+                        Console.WriteLine("Nijedno racunalo nema taj operativni sustav! Povratak na opcije\n");
+
+                    break;;
+            }
+        }
     }
 }
