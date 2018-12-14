@@ -9,17 +9,27 @@ namespace Internship_2_Inventory
         static void Main(string[] args)
         {
             var myInventory = new Inventory(ComputerInitialisation(), PhoneInitialisation(), VehicleInitialisation());
-            
-            //myInventory.PrintComputers();
-
-            //Todo: Add options description!
-            //iza : unesi rijeci
-
             var option = "";
 
             do
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Opcije:");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("1. Dodavanje novog itema u inventar\n" +
+                                  "2. Brisanje postojeceg itema iz inventara\n" +
+                                  "3. Prikaz itema preko serijskog broja\n" +
+                                  "4. Pretraga racunala po godini isteka garancije\n" +
+                                  "5. Ukupni broj proizvoda s baterijama\n" +
+                                  "6. Pretraga mobitela po markama ili pretraga racunala po operativnom sustavu\n" +
+                                  "7. Pretraga vlasnika vozila po godini isteka garncije\n" +
+                                  "8. Vozila kojima registracija istice u iducih mjesec dana\n" +
+                                  "9. Ispis cijene pri kupnji i trenutne vrijednosti\n" +
+                                  "0. Ispis svih itema u inventaru i izlazak iz programa\n" +
+                                  "\nUnesi redni broj opcije (bez tocke): ");
+                                  
                 option = Console.ReadLine();
+                Console.WriteLine();
 
                 switch (option)
                 {
@@ -96,7 +106,6 @@ namespace Internship_2_Inventory
                             else
                             {
                                 Console.WriteLine("Pogresan unos! Povratak na opcije\n");
-                                break;
                             }
                         }
                         else if (choice == "vozila")
@@ -134,7 +143,6 @@ namespace Internship_2_Inventory
                         else
                         {
                             Console.WriteLine("Pogresan unos! Povratak na opcije\n");
-                            break;
                         }
 
                         break;
@@ -187,7 +195,6 @@ namespace Internship_2_Inventory
                         else
                         {
                             Console.WriteLine("Pogresan unos! Povratak na opcije.\n");
-                            break;
                         }
 
                         break;
@@ -226,6 +233,10 @@ namespace Internship_2_Inventory
                         break;
 
                     case "6":
+                        //I did this task without using enum because I forgot to use it earlier
+                        //Changing it now would require changing a lot of things and it would only complicate the way I did the whole task
+                        //That's why I decided to leave it as is and do the 6th task in a seperate project. The link to the project is in the Readme
+
                         Console.WriteLine("Odabrali ste opciju: Pretraga mobitela po markama ili pretraga racunala po operativnom sustavu");
                         Console.Write("Unesi kategotiju koji zelis pretraziti rijecima Mobiteli ili Racunala: ");
                         var input = Console.ReadLine();
@@ -268,7 +279,7 @@ namespace Internship_2_Inventory
                         break;
 
                     case "8":
-                        Console.WriteLine("Odabrali ste opciju: Vozila kojima registracija istice u iducih mjesec dana");
+                        Console.WriteLine("Odabrali ste opciju: Ispis vozila kojima registracija istice u iducih mjesec dana");
                         Console.WriteLine("Ta vozila su:\n");
 
                         myInventory.PrintVehiclesByRegistration();
@@ -276,7 +287,10 @@ namespace Internship_2_Inventory
                         break;
 
                     case "9":
-                        Console.WriteLine("Odabrali ste opciju: ");
+                        Console.WriteLine("Odabrali ste opciju: Ispis cijene pri kupnji i trenutne vrijednosti");
+                        Console.WriteLine();
+                        myInventory.PrintMoney();
+
                         break;
 
                     case "0":
@@ -301,8 +315,8 @@ namespace Internship_2_Inventory
         {
             var computers = new List<Computer>()
             {
-                new Computer(Guid.NewGuid(), "Prvo Racunalo", new DateTime(2008, 5, 1), 20, 2000, "Asus", true, "Windows 10", true),
-                new Computer(Guid.NewGuid(), "Drugo Racunalo", new DateTime(2008, 10, 1), 4, 2000, "Dell", false, "Windows 7", false),
+                new Computer(Guid.NewGuid(), "Prvo Racunalo", new DateTime(2008, 5, 1), 20, 12000, "Asus", true, "Windows 10", true),
+                new Computer(Guid.NewGuid(), "Drugo Racunalo", new DateTime(2018, 10, 1), 4, 4000, "Dell", false, "Windows 7", false),
             };
             return computers;
         }
@@ -311,8 +325,8 @@ namespace Internship_2_Inventory
         {
             var phones = new List<Phone>()
             {
-                new Phone(Guid.NewGuid(), "Prvi Mobitel", new DateTime(2008, 1, 1), 4, 2000, "Samsung", true, "099 999 999", "Mate Matic"),
-                new Phone(Guid.NewGuid(), "Drugi Mobitel", new DateTime(2008, 12, 1), 2, 2000, "Nokia", true, "098 888 888", "Jure Juric")
+                new Phone(Guid.NewGuid(), "Prvi Mobitel", new DateTime(2018, 9, 1), 4, 3000, "Samsung", true, "099 999 999", "Mate Matic"),
+                new Phone(Guid.NewGuid(), "Drugi Mobitel", new DateTime(2017, 9, 17), 2, 20000, "Nokia", true, "098 888 888", "Jure Juric")
             };
             return phones;
         }
@@ -321,8 +335,8 @@ namespace Internship_2_Inventory
         {
             var vehicles = new List<Vehicle>()
             {
-                new Vehicle(Guid.NewGuid(), "Prvo Vozilo", new DateTime(2008, 5, 1), 24, 2000, "Toyota", new DateTime(2009, 5, 1), "120.120"),
-                new Vehicle(Guid.NewGuid(), "Drugo Vozilo", new DateTime(2008, 1, 12), 25, 2000, "Fiat", new DateTime(2008, 2, 10), "0.00")
+                new Vehicle(Guid.NewGuid(), "Prvo Vozilo", new DateTime(2008, 5, 1), 24, 10000, "Toyota", new DateTime(2009, 5, 1), 40500),
+                new Vehicle(Guid.NewGuid(), "Drugo Vozilo", new DateTime(2008, 1, 12), 25, 2000, "Fiat", new DateTime(2019, 1, 10), 200000)
             };
             return vehicles;
         }
@@ -664,9 +678,18 @@ namespace Internship_2_Inventory
                         parsed = false;
             }
 
+            parsed = Int32.TryParse(mileage, out a);
+            while (!parsed)
+            {
+                Console.WriteLine("Pogresan unos kilometraze, podatak mora biti broj!");
+                Console.Write("Unesi prijedene kilometre ponovno: ");
+                mileage = Console.ReadLine();
+                parsed = Int32.TryParse(mileage, out a);
+            }
+
             var newVehicle = new Vehicle(Guid.NewGuid(), description, new DateTime(yearAsInt, monthAsInt, dayAsInt),
                 int.Parse(warranty), int.Parse(initialPrice), manufactutrer,
-                new DateTime(registrationYearAsInt, registrationMonthAsInt, registrationDayAsInt), mileage);
+                new DateTime(registrationYearAsInt, registrationMonthAsInt, registrationDayAsInt), int.Parse(mileage));
 
             return newVehicle;
         }

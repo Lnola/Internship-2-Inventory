@@ -6,7 +6,7 @@ namespace Internship_2_Inventory
 {
     class Computer : TechEquipment
     {
-        public Computer(Guid serialNumber, string description, DateTime purchaseDate, int warranty, int purchasePrice,
+        public Computer(Guid serialNumber, string description, DateTime purchaseDate, int warranty, double purchasePrice,
             string manufacturer, bool battery, string operatingSystem, bool portable)
             : base(serialNumber, description, purchaseDate, warranty, purchasePrice, manufacturer, battery)
         {
