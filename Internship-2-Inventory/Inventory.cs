@@ -207,7 +207,7 @@ namespace Internship_2_Inventory
                 }
             }
             if(!exisits)
-                Console.WriteLine("Ta godina isteka garancije ne postoji!");
+                Console.WriteLine("Ta godina isteka garancije ne postoji!\n");
         }
 
         public void NumberOfBatteries()
@@ -254,7 +254,7 @@ namespace Internship_2_Inventory
             var exists = false;
             for (var i = 0; i < Vehicles.Count; i++)
             {
-                if (Vehicles[i].RegistartionExpirationDate <= Vehicles[i].PurchaseDatePlusMonth())
+                if (Vehicles[i].RegistartionExpirationDate <= Vehicles[i].TodayDatePlusMonth() && Vehicles[i].RegistartionExpirationDate>=DateTime.Now)
                 {
                     Vehicles[i].Print();
                     exists = true;
@@ -340,6 +340,38 @@ namespace Internship_2_Inventory
                         Console.WriteLine("Nijedno racunalo nema taj operativni sustav! Povratak na opcije\n");
 
                     break;;
+            }
+        }
+
+        public void PrintMoney()
+        {
+            foreach (var i in Vehicles)
+            {
+                var difference = i.PurchasePrice - i.ChangingPrice();
+                Console.WriteLine("Vozilo - " + i.Description + ":");
+                Console.WriteLine("Originalna cijena: " + i.PurchasePrice);
+                Console.WriteLine("Trenutna vrijednost: " + i.ChangingPrice());
+                Console.WriteLine("Razlika cijena: " + difference);
+                Console.WriteLine();
+            }
+            foreach (var i in Computers)
+            {
+                var difference = i.PurchasePrice - i.ChangingTechPrice();
+                Console.WriteLine("Racunalo - " + i.Description + ":");
+                Console.WriteLine("Originalna cijena: " + i.PurchasePrice);
+                Console.WriteLine("Trenutna vrijednost: " + i.ChangingTechPrice());
+                Console.WriteLine("Razlika cijena: " + difference);
+                Console.WriteLine();
+            }
+
+            foreach (var i in Phones)
+            {
+                var difference = i.PurchasePrice - i.ChangingTechPrice();
+                Console.WriteLine("Mobitel - " + i.Description + ":");
+                Console.WriteLine("Originalna cijena: " + i.PurchasePrice);
+                Console.WriteLine("Trenutna vrijednost: " + i.ChangingTechPrice());
+                Console.WriteLine("Razlika cijena: " + difference);
+                Console.WriteLine();
             }
         }
     }

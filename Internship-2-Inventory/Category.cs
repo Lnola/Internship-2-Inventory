@@ -6,7 +6,7 @@ namespace Internship_2_Inventory
 {
     class Category
     {
-        public Category(Guid serialNumber, string description, DateTime purchaseDate, int warranty, int purchasePrice, string manufacturer)
+        public Category(Guid serialNumber, string description, DateTime purchaseDate, int warranty, double purchasePrice, string manufacturer)
         {
             SerialNumber = serialNumber;
             Description = description;
@@ -20,7 +20,7 @@ namespace Internship_2_Inventory
         public string Description { get; set; }
         public DateTime PurchaseDate { get; set; }
         public int Warranty { get; set; }
-        public int PurchasePrice { get; set; }
+        public double PurchasePrice { get; set; }
         public string Manufacturer { get; set; }
     }
 }

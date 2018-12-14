@@ -6,8 +6,8 @@ namespace Internship_2_Inventory
 {
     class Vehicle : Category
     {
-        public Vehicle(Guid serialNumber, string description, DateTime purchaseDate, int warranty, int purchasePrice,
-            string manufacturer, DateTime registartionexpirationDate, string mileage)
+        public Vehicle(Guid serialNumber, string description, DateTime purchaseDate, int warranty, double purchasePrice,
+            string manufacturer, DateTime registartionexpirationDate, int mileage)
             : base(serialNumber, description, purchaseDate, warranty, purchasePrice, manufacturer)
         {
             RegistartionExpirationDate = registartionexpirationDate;
@@ -15,7 +15,7 @@ namespace Internship_2_Inventory
         }
 
         public DateTime RegistartionExpirationDate { get; set; }
-        public string Mileage { get; set; }
+        public int Mileage { get; set; }
 
         public void Print()
         {
@@ -37,11 +37,31 @@ namespace Internship_2_Inventory
 
         }
 
-        public DateTime PurchaseDatePlusMonth()
+        public DateTime TodayDatePlusMonth()
         {
-            var purchaseDatePlusMonth = PurchaseDate.AddMonths(1);
+            var todayPlusMonth = DateTime.Now.AddMonths(1);
 
-            return purchaseDatePlusMonth;
+            return todayPlusMonth;
+        }
+
+        public double ChangingPrice()
+        {
+            var money = PurchasePrice;
+            var kilometers = Mileage;
+
+            while (kilometers >= 20000)
+            {
+                if (money >= 0.8 * PurchasePrice)
+                    money = money * 0.9;
+                if (money < 0.8 * PurchasePrice)
+                {
+                    money = PurchasePrice * 0.8;
+                    break;
+                }
+                kilometers -= 20000;
+            }
+
+            return money;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Internship_2_Inventory
 {
     class Phone : TechEquipment
     {
-        public Phone(Guid serialNumber, string description, DateTime purchaseDate, int warranty, int purchasePrice,
+        public Phone(Guid serialNumber, string description, DateTime purchaseDate, int warranty, double purchasePrice,
             string manufacturer, bool battery, string phoneNumber, string nameOfOwner)
             : base(serialNumber, description, purchaseDate, warranty, purchasePrice, manufacturer, battery)
         {
